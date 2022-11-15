@@ -25,7 +25,9 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             "name" => "required",
-            "photo" => "nullable|image"
+            "photo" => "nullable|image",
+            "parent_id" => "nullable|integer"
+
         ];
     }
 }

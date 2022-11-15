@@ -17,8 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("photo")->nullable();
+            $table->bigInteger("parent_id")->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign("parent_id")->references("id")->on("categories")->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
