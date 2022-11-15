@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dashboard\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group(["namespace" => "guest"], function () {
+    Route::post("users/login", [UserController::class, "login"]);
+});
+
+Route::group(["middleware" => "auth:sanctum", "namespace" => "dashboard", "prefix" => "dashboard"], function () {
+    Route::apiResource("users", "UserController");
+    Route::apiResource("categories", "UserController");
 });
