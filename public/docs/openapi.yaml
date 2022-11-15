@@ -1,10 +1,1597 @@
 openapi: 3.0.3
 info:
-  title: Laravel
-  description: ''
+  title: 'e-commerce api documention'
+  description: "\nRoles & Permssions System explain :<br>\nusers have roles, and roles have permissions, and your app always checks for permissions, not roles.\n\nAll available permssions:<br>\n[\"create-users\",\"view-users\",\"edit-users\",\"delete-users\",\"create-categories\",\"view-categories\",\"edit-categories\",\"delete-categories\",\"view-permissions\",\"view-roles\",\"create-roles\",\"edit-roles\",\"delete-roles\"]\n            <br>\n\n            Notes:\n            owner it is default role and it bybass all the permissions.\n            default user:\n            email: owner@owner.com\n            password: password\n\n\n    "
   version: 1.0.0
 servers:
   -
     url: 'http://localhost'
-paths: []
-tags: []
+paths:
+  /api/roles:
+    get:
+      summary: 'Display all the roles (paginated) with their permissions.'
+      description: 'required (view-roles) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  current_page: 1
+                  data:
+                    -
+                      id: 1
+                      name: owner
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      permissions: []
+                    -
+                      id: 2
+                      name: admin
+                      guard_name: web
+                      created_at: '2022-11-15T19:34:18.000000Z'
+                      updated_at: '2022-11-15T19:34:18.000000Z'
+                      permissions:
+                        -
+                          id: 3
+                          name: edit-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 2
+                            permission_id: 3
+                    -
+                      id: 9
+                      name: mod
+                      guard_name: web
+                      created_at: '2022-11-15T19:53:53.000000Z'
+                      updated_at: '2022-11-15T19:53:53.000000Z'
+                      permissions:
+                        -
+                          id: 1
+                          name: create-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 9
+                            permission_id: 1
+                        -
+                          id: 2
+                          name: view-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 9
+                            permission_id: 2
+                  first_page_url: 'http://localhost:8000/api/roles?page=1'
+                  from: 1
+                  last_page: 1
+                  last_page_url: 'http://localhost:8000/api/roles?page=1'
+                  links:
+                    -
+                      url: null
+                      label: '&laquo; Previous'
+                      active: false
+                    -
+                      url: 'http://localhost:8000/api/roles?page=1'
+                      label: '1'
+                      active: true
+                    -
+                      url: null
+                      label: 'Next &raquo;'
+                      active: false
+                  next_page_url: null
+                  path: 'http://localhost:8000/api/roles'
+                  per_page: 5
+                  prev_page_url: null
+                  to: 3
+                  total: 3
+                properties:
+                  current_page:
+                    type: integer
+                    example: 1
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: owner
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        permissions: []
+                      -
+                        id: 2
+                        name: admin
+                        guard_name: web
+                        created_at: '2022-11-15T19:34:18.000000Z'
+                        updated_at: '2022-11-15T19:34:18.000000Z'
+                        permissions:
+                          -
+                            id: 3
+                            name: edit-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 2
+                              permission_id: 3
+                      -
+                        id: 9
+                        name: mod
+                        guard_name: web
+                        created_at: '2022-11-15T19:53:53.000000Z'
+                        updated_at: '2022-11-15T19:53:53.000000Z'
+                        permissions:
+                          -
+                            id: 1
+                            name: create-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 9
+                              permission_id: 1
+                          -
+                            id: 2
+                            name: view-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 9
+                              permission_id: 2
+                    items:
+                      type: object
+                  first_page_url:
+                    type: string
+                    example: 'http://localhost:8000/api/roles?page=1'
+                  from:
+                    type: integer
+                    example: 1
+                  last_page:
+                    type: integer
+                    example: 1
+                  last_page_url:
+                    type: string
+                    example: 'http://localhost:8000/api/roles?page=1'
+                  links:
+                    type: array
+                    example:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: 'http://localhost:8000/api/roles?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        active: false
+                    items:
+                      type: object
+                  next_page_url:
+                    type: string
+                    example: null
+                  path:
+                    type: string
+                    example: 'http://localhost:8000/api/roles'
+                  per_page:
+                    type: integer
+                    example: 5
+                  prev_page_url:
+                    type: string
+                    example: null
+                  to:
+                    type: integer
+                    example: 3
+                  total:
+                    type: integer
+                    example: 3
+      tags:
+        - roles
+    post:
+      summary: 'Store a newly created role.'
+      description: 'required (create-roles) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  name: mod
+                  guard_name: web
+                  updated_at: '2022-11-15T19:53:53.000000Z'
+                  created_at: '2022-11-15T19:53:53.000000Z'
+                  id: 9
+                  permissions:
+                    -
+                      id: 1
+                      name: create-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 9
+                        permission_id: 1
+                    -
+                      id: 2
+                      name: view-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 9
+                        permission_id: 2
+                properties:
+                  name:
+                    type: string
+                    example: mod
+                  guard_name:
+                    type: string
+                    example: web
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T19:53:53.000000Z'
+                  created_at:
+                    type: string
+                    example: '2022-11-15T19:53:53.000000Z'
+                  id:
+                    type: integer
+                    example: 9
+                  permissions:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: create-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 9
+                          permission_id: 1
+                      -
+                        id: 2
+                        name: view-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 9
+                          permission_id: 2
+                    items:
+                      type: object
+      tags:
+        - roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: soluta
+                permissions:
+                  type: array
+                  description: 'int[] can be array of permissions names or ids'
+                  example:
+                    - accusantium
+                  items:
+                    type: string
+              required:
+                - name
+  '/api/roles/{id}':
+    get:
+      summary: 'Display the specified role with it permissions.'
+      description: 'required (view-roles) permssion'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 9
+                  name: mod
+                  guard_name: web
+                  created_at: '2022-11-15T19:53:53.000000Z'
+                  updated_at: '2022-11-15T19:53:53.000000Z'
+                  permissions:
+                    -
+                      id: 1
+                      name: create-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 9
+                        permission_id: 1
+                    -
+                      id: 2
+                      name: view-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 9
+                        permission_id: 2
+                properties:
+                  id:
+                    type: integer
+                    example: 9
+                  name:
+                    type: string
+                    example: mod
+                  guard_name:
+                    type: string
+                    example: web
+                  created_at:
+                    type: string
+                    example: '2022-11-15T19:53:53.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T19:53:53.000000Z'
+                  permissions:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: create-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 9
+                          permission_id: 1
+                      -
+                        id: 2
+                        name: view-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 9
+                          permission_id: 2
+                    items:
+                      type: object
+      tags:
+        - roles
+    put:
+      summary: 'Update the specified role.'
+      description: 'required (edit-roles) permissions'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 2
+                  name: admin
+                  guard_name: web
+                  created_at: '2022-11-15T19:34:18.000000Z'
+                  updated_at: '2022-11-15T19:34:18.000000Z'
+                  permissions:
+                    -
+                      id: 3
+                      name: edit-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 2
+                        permission_id: 3
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  name:
+                    type: string
+                    example: admin
+                  guard_name:
+                    type: string
+                    example: web
+                  created_at:
+                    type: string
+                    example: '2022-11-15T19:34:18.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T19:34:18.000000Z'
+                  permissions:
+                    type: array
+                    example:
+                      -
+                        id: 3
+                        name: edit-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 2
+                          permission_id: 3
+                    items:
+                      type: object
+      tags:
+        - roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: sequi
+                permissions:
+                  type: array
+                  description: 'int[] can be array of permissions names or ids'
+                  example:
+                    - et
+                  items:
+                    type: string
+              required:
+                - name
+    delete:
+      summary: 'Remove the specified role.'
+      description: 'required (delete-role) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 2
+                  name: admin
+                  guard_name: web
+                  created_at: '2022-11-15T19:34:18.000000Z'
+                  updated_at: '2022-11-15T19:34:18.000000Z'
+                  permissions:
+                    -
+                      id: 3
+                      name: edit-users
+                      guard_name: web
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T18:24:27.000000Z'
+                      pivot:
+                        role_id: 2
+                        permission_id: 3
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+                  name:
+                    type: string
+                    example: admin
+                  guard_name:
+                    type: string
+                    example: web
+                  created_at:
+                    type: string
+                    example: '2022-11-15T19:34:18.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T19:34:18.000000Z'
+                  permissions:
+                    type: array
+                    example:
+                      -
+                        id: 3
+                        name: edit-users
+                        guard_name: web
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T18:24:27.000000Z'
+                        pivot:
+                          role_id: 2
+                          permission_id: 3
+                    items:
+                      type: object
+      tags:
+        - roles
+    parameters:
+      -
+        in: path
+        name: id
+        description: ''
+        example: 17
+        required: true
+        schema:
+          type: integer
+  /api/permissions:
+    get:
+      summary: 'Display all the available permissions.'
+      description: 'required (view-perimssions) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: 1
+                    name: create-users
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:27.000000Z'
+                    updated_at: '2022-11-15T18:24:27.000000Z'
+                  -
+                    id: 2
+                    name: view-users
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:27.000000Z'
+                    updated_at: '2022-11-15T18:24:27.000000Z'
+                  -
+                    id: 3
+                    name: edit-users
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:27.000000Z'
+                    updated_at: '2022-11-15T18:24:27.000000Z'
+                  -
+                    id: 4
+                    name: delete-users
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:28.000000Z'
+                    updated_at: '2022-11-15T18:24:28.000000Z'
+                  -
+                    id: 5
+                    name: create-categories
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:28.000000Z'
+                    updated_at: '2022-11-15T18:24:28.000000Z'
+                  -
+                    id: 6
+                    name: view-categories
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:28.000000Z'
+                    updated_at: '2022-11-15T18:24:28.000000Z'
+                  -
+                    id: 7
+                    name: edit-categories
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:28.000000Z'
+                    updated_at: '2022-11-15T18:24:28.000000Z'
+                  -
+                    id: 8
+                    name: delete-categories
+                    guard_name: web
+                    created_at: '2022-11-15T18:24:28.000000Z'
+                    updated_at: '2022-11-15T18:24:28.000000Z'
+      tags:
+        - permissions
+  /api/users/login:
+    post:
+      summary: 'Authunticate user and get the token'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: null
+                  email: owner@owner.com
+                  email_verified_at: null
+                  created_at: '2022-11-15T16:59:52.000000Z'
+                  updated_at: '2022-11-15T16:59:52.000000Z'
+                  deleted_at: null
+                  token: 8|v7THbrUQdHC8N1dokpy3lfPBXPSDjPymtrxwWz8v
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: null
+                  email:
+                    type: string
+                    example: owner@owner.com
+                  email_verified_at:
+                    type: string
+                    example: null
+                  created_at:
+                    type: string
+                    example: '2022-11-15T16:59:52.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T16:59:52.000000Z'
+                  deleted_at:
+                    type: string
+                    example: null
+                  token:
+                    type: string
+                    example: 8|v7THbrUQdHC8N1dokpy3lfPBXPSDjPymtrxwWz8v
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: ''
+                  example: qui
+                password:
+                  type: string
+                  description: ''
+                  example: et
+              required:
+                - email
+                - password
+      security: []
+  /api/users/register:
+    post:
+      summary: 'Register new user (used by guests)'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: monty@gmail.comf
+                  name: ff
+                  updated_at: '2022-11-15T17:40:36.000000Z'
+                  created_at: '2022-11-15T17:40:36.000000Z'
+                  id: 3
+                  token: 7|DgCOUIw3NCTVPmhwqmwovG6imJHgtGx9nTHrkIle
+                properties:
+                  email:
+                    type: string
+                    example: monty@gmail.comf
+                  name:
+                    type: string
+                    example: ff
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T17:40:36.000000Z'
+                  created_at:
+                    type: string
+                    example: '2022-11-15T17:40:36.000000Z'
+                  id:
+                    type: integer
+                    example: 3
+                  token:
+                    type: string
+                    example: 7|DgCOUIw3NCTVPmhwqmwovG6imJHgtGx9nTHrkIle
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: viola.stoltenberg@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: adipisci
+                password_confirm:
+                  type: string
+                  description: 'The value and <code>password</code> must match.'
+                  example: deleniti
+                name:
+                  type: string
+                  description: ''
+                  example: null
+                roles:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - email
+                - password
+                - password_confirm
+      security: []
+  /api/users:
+    get:
+      summary: 'Display all the users (paginated) with their roles and permissions.'
+      description: 'required (view-users) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  current_page: 1
+                  data:
+                    -
+                      id: 1
+                      name: null
+                      email: owner@owner.com
+                      email_verified_at: null
+                      created_at: '2022-11-15T18:24:27.000000Z'
+                      updated_at: '2022-11-15T19:03:37.000000Z'
+                      deleted_at: null
+                      roles:
+                        -
+                          id: 1
+                          name: owner
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            model_id: 1
+                            role_id: 1
+                            model_type: App\Models\User
+                          permissions: []
+                    -
+                      id: 3
+                      name: null
+                      email: m@gmail.com
+                      email_verified_at: null
+                      created_at: '2022-11-15T18:51:12.000000Z'
+                      updated_at: '2022-11-15T20:36:01.000000Z'
+                      deleted_at: null
+                      roles:
+                        -
+                          id: 2
+                          name: admin
+                          guard_name: web
+                          created_at: '2022-11-15T19:34:18.000000Z'
+                          updated_at: '2022-11-15T19:34:18.000000Z'
+                          pivot:
+                            model_id: 3
+                            role_id: 2
+                            model_type: App\Models\User
+                          permissions:
+                            -
+                              id: 3
+                              name: edit-users
+                              guard_name: web
+                              created_at: '2022-11-15T18:24:27.000000Z'
+                              updated_at: '2022-11-15T18:24:27.000000Z'
+                              pivot:
+                                role_id: 2
+                                permission_id: 3
+                    -
+                      id: 4
+                      name: ee
+                      email: m@egmail.com
+                      email_verified_at: null
+                      created_at: '2022-11-15T18:51:36.000000Z'
+                      updated_at: '2022-11-15T18:51:36.000000Z'
+                      deleted_at: null
+                      roles: []
+                  first_page_url: 'http://localhost:8000/api/users?page=1'
+                  from: 1
+                  last_page: 1
+                  last_page_url: 'http://localhost:8000/api/users?page=1'
+                  links:
+                    -
+                      url: null
+                      label: '&laquo; Previous'
+                      active: false
+                    -
+                      url: 'http://localhost:8000/api/users?page=1'
+                      label: '1'
+                      active: true
+                    -
+                      url: null
+                      label: 'Next &raquo;'
+                      active: false
+                  next_page_url: null
+                  path: 'http://localhost:8000/api/users'
+                  per_page: 5
+                  prev_page_url: null
+                  to: 3
+                  total: 3
+                properties:
+                  current_page:
+                    type: integer
+                    example: 1
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: null
+                        email: owner@owner.com
+                        email_verified_at: null
+                        created_at: '2022-11-15T18:24:27.000000Z'
+                        updated_at: '2022-11-15T19:03:37.000000Z'
+                        deleted_at: null
+                        roles:
+                          -
+                            id: 1
+                            name: owner
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              model_id: 1
+                              role_id: 1
+                              model_type: App\Models\User
+                            permissions: []
+                      -
+                        id: 3
+                        name: null
+                        email: m@gmail.com
+                        email_verified_at: null
+                        created_at: '2022-11-15T18:51:12.000000Z'
+                        updated_at: '2022-11-15T20:36:01.000000Z'
+                        deleted_at: null
+                        roles:
+                          -
+                            id: 2
+                            name: admin
+                            guard_name: web
+                            created_at: '2022-11-15T19:34:18.000000Z'
+                            updated_at: '2022-11-15T19:34:18.000000Z'
+                            pivot:
+                              model_id: 3
+                              role_id: 2
+                              model_type: App\Models\User
+                            permissions:
+                              -
+                                id: 3
+                                name: edit-users
+                                guard_name: web
+                                created_at: '2022-11-15T18:24:27.000000Z'
+                                updated_at: '2022-11-15T18:24:27.000000Z'
+                                pivot:
+                                  role_id: 2
+                                  permission_id: 3
+                      -
+                        id: 4
+                        name: ee
+                        email: m@egmail.com
+                        email_verified_at: null
+                        created_at: '2022-11-15T18:51:36.000000Z'
+                        updated_at: '2022-11-15T18:51:36.000000Z'
+                        deleted_at: null
+                        roles: []
+                    items:
+                      type: object
+                  first_page_url:
+                    type: string
+                    example: 'http://localhost:8000/api/users?page=1'
+                  from:
+                    type: integer
+                    example: 1
+                  last_page:
+                    type: integer
+                    example: 1
+                  last_page_url:
+                    type: string
+                    example: 'http://localhost:8000/api/users?page=1'
+                  links:
+                    type: array
+                    example:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: 'http://localhost:8000/api/users?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: null
+                        label: 'Next &raquo;'
+                        active: false
+                    items:
+                      type: object
+                  next_page_url:
+                    type: string
+                    example: null
+                  path:
+                    type: string
+                    example: 'http://localhost:8000/api/users'
+                  per_page:
+                    type: integer
+                    example: 5
+                  prev_page_url:
+                    type: string
+                    example: null
+                  to:
+                    type: integer
+                    example: 3
+                  total:
+                    type: integer
+                    example: 3
+      tags:
+        - users
+    post:
+      summary: 'Store a newly created user.'
+      description: 'required (create-users) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  email: khalid@egmail.com
+                  name: g
+                  updated_at: '2022-11-15T20:41:00.000000Z'
+                  created_at: '2022-11-15T20:41:00.000000Z'
+                  id: 6
+                  roles:
+                    -
+                      id: 2
+                      name: admin
+                      guard_name: web
+                      created_at: '2022-11-15T19:34:18.000000Z'
+                      updated_at: '2022-11-15T19:34:18.000000Z'
+                      pivot:
+                        model_id: 6
+                        role_id: 2
+                        model_type: App\Models\User
+                      permissions:
+                        -
+                          id: 3
+                          name: edit-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 2
+                            permission_id: 3
+                properties:
+                  email:
+                    type: string
+                    example: khalid@egmail.com
+                  name:
+                    type: string
+                    example: g
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T20:41:00.000000Z'
+                  created_at:
+                    type: string
+                    example: '2022-11-15T20:41:00.000000Z'
+                  id:
+                    type: integer
+                    example: 6
+                  roles:
+                    type: array
+                    example:
+                      -
+                        id: 2
+                        name: admin
+                        guard_name: web
+                        created_at: '2022-11-15T19:34:18.000000Z'
+                        updated_at: '2022-11-15T19:34:18.000000Z'
+                        pivot:
+                          model_id: 6
+                          role_id: 2
+                          model_type: App\Models\User
+                        permissions:
+                          -
+                            id: 3
+                            name: edit-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 2
+                              permission_id: 3
+                    items:
+                      type: object
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: frederick95@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: ullam
+                password_confirm:
+                  type: string
+                  description: 'The value and <code>password</code> must match.'
+                  example: voluptatem
+                name:
+                  type: string
+                  description: ''
+                  example: null
+                roles:
+                  type: array
+                  description: 'int[] can be array of roles names or ids'
+                  example:
+                    - temporibus
+                  items:
+                    type: string
+              required:
+                - email
+                - password
+                - password_confirm
+  '/api/users/{id}':
+    get:
+      summary: 'Display the specified user with it roles and permissions.'
+      description: 'required (view-users) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 3
+                  name: null
+                  email: m@gmail.com
+                  email_verified_at: null
+                  created_at: '2022-11-15T18:51:12.000000Z'
+                  updated_at: '2022-11-15T20:36:01.000000Z'
+                  deleted_at: null
+                  roles:
+                    -
+                      id: 2
+                      name: admin
+                      guard_name: web
+                      created_at: '2022-11-15T19:34:18.000000Z'
+                      updated_at: '2022-11-15T19:34:18.000000Z'
+                      pivot:
+                        model_id: 3
+                        role_id: 2
+                        model_type: App\Models\User
+                      permissions:
+                        -
+                          id: 3
+                          name: edit-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 2
+                            permission_id: 3
+                properties:
+                  id:
+                    type: integer
+                    example: 3
+                  name:
+                    type: string
+                    example: null
+                  email:
+                    type: string
+                    example: m@gmail.com
+                  email_verified_at:
+                    type: string
+                    example: null
+                  created_at:
+                    type: string
+                    example: '2022-11-15T18:51:12.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T20:36:01.000000Z'
+                  deleted_at:
+                    type: string
+                    example: null
+                  roles:
+                    type: array
+                    example:
+                      -
+                        id: 2
+                        name: admin
+                        guard_name: web
+                        created_at: '2022-11-15T19:34:18.000000Z'
+                        updated_at: '2022-11-15T19:34:18.000000Z'
+                        pivot:
+                          model_id: 3
+                          role_id: 2
+                          model_type: App\Models\User
+                        permissions:
+                          -
+                            id: 3
+                            name: edit-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 2
+                              permission_id: 3
+                    items:
+                      type: object
+      tags:
+        - users
+    put:
+      summary: 'Update the specified user.'
+      description: 'required (edit-users) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 3
+                  name: null
+                  email: m@gmail.com
+                  email_verified_at: null
+                  created_at: '2022-11-15T18:51:12.000000Z'
+                  updated_at: '2022-11-15T20:36:01.000000Z'
+                  deleted_at: null
+                  roles:
+                    -
+                      id: 2
+                      name: admin
+                      guard_name: web
+                      created_at: '2022-11-15T19:34:18.000000Z'
+                      updated_at: '2022-11-15T19:34:18.000000Z'
+                      pivot:
+                        model_id: 3
+                        role_id: 2
+                        model_type: App\Models\User
+                      permissions:
+                        -
+                          id: 3
+                          name: edit-users
+                          guard_name: web
+                          created_at: '2022-11-15T18:24:27.000000Z'
+                          updated_at: '2022-11-15T18:24:27.000000Z'
+                          pivot:
+                            role_id: 2
+                            permission_id: 3
+                properties:
+                  id:
+                    type: integer
+                    example: 3
+                  name:
+                    type: string
+                    example: null
+                  email:
+                    type: string
+                    example: m@gmail.com
+                  email_verified_at:
+                    type: string
+                    example: null
+                  created_at:
+                    type: string
+                    example: '2022-11-15T18:51:12.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T20:36:01.000000Z'
+                  deleted_at:
+                    type: string
+                    example: null
+                  roles:
+                    type: array
+                    example:
+                      -
+                        id: 2
+                        name: admin
+                        guard_name: web
+                        created_at: '2022-11-15T19:34:18.000000Z'
+                        updated_at: '2022-11-15T19:34:18.000000Z'
+                        pivot:
+                          model_id: 3
+                          role_id: 2
+                          model_type: App\Models\User
+                        permissions:
+                          -
+                            id: 3
+                            name: edit-users
+                            guard_name: web
+                            created_at: '2022-11-15T18:24:27.000000Z'
+                            updated_at: '2022-11-15T18:24:27.000000Z'
+                            pivot:
+                              role_id: 2
+                              permission_id: 3
+                    items:
+                      type: object
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: earnest94@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: praesentium
+                password_confirm:
+                  type: string
+                  description: 'The value and <code>password</code> must match.'
+                  example: vel
+                name:
+                  type: string
+                  description: ''
+                  example: null
+                roles:
+                  type: array
+                  description: 'int[] can be array of roles names or ids'
+                  example:
+                    - quibusdam
+                  items:
+                    type: string
+              required:
+                - email
+                - password
+                - password_confirm
+    delete:
+      summary: 'Remove the specified user.'
+      description: 'required (delete-users) permission'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: null
+                  email: owner@owner.com
+                  email_verified_at: null
+                  created_at: '2022-11-15T18:24:27.000000Z'
+                  updated_at: '2022-11-15T19:03:37.000000Z'
+                  deleted_at: null
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: null
+                  email:
+                    type: string
+                    example: owner@owner.com
+                  email_verified_at:
+                    type: string
+                    example: null
+                  created_at:
+                    type: string
+                    example: '2022-11-15T18:24:27.000000Z'
+                  updated_at:
+                    type: string
+                    example: '2022-11-15T19:03:37.000000Z'
+                  deleted_at:
+                    type: string
+                    example: null
+      tags:
+        - users
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: roles
+    description: ''
+  -
+    name: permissions
+    description: ''
+  -
+    name: users
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []

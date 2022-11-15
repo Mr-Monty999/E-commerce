@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Laravel Documentation</title>
+    <title>e-commerce api documention</title>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 
@@ -69,6 +69,66 @@
                                             
                                                 </ul>
                     
+                    <ul id="tocify-header-2" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="roles">
+                    <a href="#roles">roles</a>
+                </li>
+                                    <ul id="tocify-subheader-roles" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="roles-GETapi-roles">
+                        <a href="#roles-GETapi-roles">Display all the roles (paginated) with their permissions.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="roles-POSTapi-roles">
+                        <a href="#roles-POSTapi-roles">Store a newly created role.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="roles-GETapi-roles--id-">
+                        <a href="#roles-GETapi-roles--id-">Display the specified role with it permissions.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="roles-PUTapi-roles--id-">
+                        <a href="#roles-PUTapi-roles--id-">Update the specified role.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="roles-DELETEapi-roles--id-">
+                        <a href="#roles-DELETEapi-roles--id-">Remove the specified role.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-3" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="permissions">
+                    <a href="#permissions">permissions</a>
+                </li>
+                                    <ul id="tocify-subheader-permissions" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="permissions-GETapi-permissions">
+                        <a href="#permissions-GETapi-permissions">Display all the available permissions.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-4" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="users">
+                    <a href="#users">users</a>
+                </li>
+                                    <ul id="tocify-subheader-users" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="users-POSTapi-users-login">
+                        <a href="#users-POSTapi-users-login">Authunticate user and get the token</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-POSTapi-users-register">
+                        <a href="#users-POSTapi-users-register">Register new user (used by guests)</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-GETapi-users">
+                        <a href="#users-GETapi-users">Display all the users (paginated) with their roles and permissions.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-POSTapi-users">
+                        <a href="#users-POSTapi-users">Store a newly created user.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-GETapi-users--id-">
+                        <a href="#users-GETapi-users--id-">Display the specified user with it roles and permissions.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-PUTapi-users--id-">
+                        <a href="#users-PUTapi-users--id-">Update the specified user.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="users-DELETEapi-users--id-">
+                        <a href="#users-DELETEapi-users--id-">Remove the specified user.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
         
                         
             </div>
@@ -87,6 +147,16 @@
     <div class="dark-box"></div>
     <div class="content">
         <h1 id="introduction">Introduction</h1>
+<p>Roles &amp; Permssions System explain :<br>
+users have roles, and roles have permissions, and your app always checks for permissions, not roles.</p>
+<p>All available permssions:<br>
+[&quot;create-users&quot;,&quot;view-users&quot;,&quot;edit-users&quot;,&quot;delete-users&quot;,&quot;create-categories&quot;,&quot;view-categories&quot;,&quot;edit-categories&quot;,&quot;delete-categories&quot;,&quot;view-permissions&quot;,&quot;view-roles&quot;,&quot;create-roles&quot;,&quot;edit-roles&quot;,&quot;delete-roles&quot;]
+<br></p>
+<pre><code>        Notes:
+        owner it is default role and it bybass all the permissions.
+        default user:
+        email: owner@owner.com
+        password: password</code></pre>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
@@ -96,9 +166,2117 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://localhost</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is not authenticated.</p>
+<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
+<p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
+<p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
 
-        
+        <h1 id="roles">roles</h1>
+
+    
+
+            <h2 id="roles-GETapi-roles">Display all the roles (paginated) with their permissions.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (view-roles) permission</p>
+
+<span id="example-requests-GETapi-roles">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/roles" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/roles"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-roles">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;current_page&quot;: 1,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;owner&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;permissions&quot;: []
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;admin&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 3,
+                    &quot;name&quot;: &quot;edit-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 2,
+                        &quot;permission_id&quot;: 3
+                    }
+                }
+            ]
+        },
+        {
+            &quot;id&quot;: 9,
+            &quot;name&quot;: &quot;mod&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;create-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 9,
+                        &quot;permission_id&quot;: 1
+                    }
+                },
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;view-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 9,
+                        &quot;permission_id&quot;: 2
+                    }
+                }
+            ]
+        }
+    ],
+    &quot;first_page_url&quot;: &quot;http://localhost:8000/api/roles?page=1&quot;,
+    &quot;from&quot;: 1,
+    &quot;last_page&quot;: 1,
+    &quot;last_page_url&quot;: &quot;http://localhost:8000/api/roles?page=1&quot;,
+    &quot;links&quot;: [
+        {
+            &quot;url&quot;: null,
+            &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+            &quot;active&quot;: false
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost:8000/api/roles?page=1&quot;,
+            &quot;label&quot;: &quot;1&quot;,
+            &quot;active&quot;: true
+        },
+        {
+            &quot;url&quot;: null,
+            &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+            &quot;active&quot;: false
+        }
+    ],
+    &quot;next_page_url&quot;: null,
+    &quot;path&quot;: &quot;http://localhost:8000/api/roles&quot;,
+    &quot;per_page&quot;: 5,
+    &quot;prev_page_url&quot;: null,
+    &quot;to&quot;: 3,
+    &quot;total&quot;: 3
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-roles" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-roles"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-roles"></code></pre>
+</span>
+<span id="execution-error-GETapi-roles" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-roles"></code></pre>
+</span>
+<form id="form-GETapi-roles" data-method="GET"
+      data-path="api/roles"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-roles', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-roles"
+                    onclick="tryItOut('GETapi-roles');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-roles"
+                    onclick="cancelTryOut('GETapi-roles');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-roles" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/roles</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-roles" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-roles"
+                                                                data-component="header"></label>
+        </p>
+                </form>
+
+            <h2 id="roles-POSTapi-roles">Store a newly created role.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (create-roles) permission</p>
+
+<span id="example-requests-POSTapi-roles">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/roles" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"soluta\",
+    \"permissions\": [
+        \"accusantium\"
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/roles"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "soluta",
+    "permissions": [
+        "accusantium"
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-roles">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;name&quot;: &quot;mod&quot;,
+    &quot;guard_name&quot;: &quot;web&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+    &quot;id&quot;: 9,
+    &quot;permissions&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;create-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 9,
+                &quot;permission_id&quot;: 1
+            }
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;view-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 9,
+                &quot;permission_id&quot;: 2
+            }
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-roles" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-roles"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-roles"></code></pre>
+</span>
+<span id="execution-error-POSTapi-roles" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-roles"></code></pre>
+</span>
+<form id="form-POSTapi-roles" data-method="POST"
+      data-path="api/roles"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-roles', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-roles"
+                    onclick="tryItOut('POSTapi-roles');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-roles"
+                    onclick="cancelTryOut('POSTapi-roles');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-roles" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/roles</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTapi-roles" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTapi-roles"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-roles"
+               value="soluta"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>permissions</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="permissions[0]"
+               data-endpoint="POSTapi-roles"
+               data-component="body" hidden>
+        <input type="text"
+               name="permissions[1]"
+               data-endpoint="POSTapi-roles"
+               data-component="body" hidden>
+    <br>
+<p>int[] can be array of permissions names or ids</p>
+        </p>
+        </form>
+
+            <h2 id="roles-GETapi-roles--id-">Display the specified role with it permissions.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (view-roles) permssion</p>
+
+<span id="example-requests-GETapi-roles--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/roles/17" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/roles/17"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-roles--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 9,
+    &quot;name&quot;: &quot;mod&quot;,
+    &quot;guard_name&quot;: &quot;web&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T19:53:53.000000Z&quot;,
+    &quot;permissions&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;create-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 9,
+                &quot;permission_id&quot;: 1
+            }
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;view-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 9,
+                &quot;permission_id&quot;: 2
+            }
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-roles--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-roles--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-roles--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-roles--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-roles--id-"></code></pre>
+</span>
+<form id="form-GETapi-roles--id-" data-method="GET"
+      data-path="api/roles/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-roles--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-roles--id-"
+                    onclick="tryItOut('GETapi-roles--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-roles--id-"
+                    onclick="cancelTryOut('GETapi-roles--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-roles--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/roles/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-roles--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-roles--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-roles--id-"
+               value="17"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+            <h2 id="roles-PUTapi-roles--id-">Update the specified role.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (edit-roles) permissions</p>
+
+<span id="example-requests-PUTapi-roles--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/roles/15" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"sequi\",
+    \"permissions\": [
+        \"et\"
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/roles/15"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "sequi",
+    "permissions": [
+        "et"
+    ]
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-roles--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 2,
+    &quot;name&quot;: &quot;admin&quot;,
+    &quot;guard_name&quot;: &quot;web&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+    &quot;permissions&quot;: [
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;edit-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 2,
+                &quot;permission_id&quot;: 3
+            }
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-roles--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-roles--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-roles--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-roles--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-roles--id-"></code></pre>
+</span>
+<form id="form-PUTapi-roles--id-" data-method="PUT"
+      data-path="api/roles/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-roles--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-roles--id-"
+                    onclick="tryItOut('PUTapi-roles--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-roles--id-"
+                    onclick="cancelTryOut('PUTapi-roles--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-roles--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/roles/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/roles/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-PUTapi-roles--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="PUTapi-roles--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-roles--id-"
+               value="15"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="PUTapi-roles--id-"
+               value="sequi"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>permissions</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="permissions[0]"
+               data-endpoint="PUTapi-roles--id-"
+               data-component="body" hidden>
+        <input type="text"
+               name="permissions[1]"
+               data-endpoint="PUTapi-roles--id-"
+               data-component="body" hidden>
+    <br>
+<p>int[] can be array of permissions names or ids</p>
+        </p>
+        </form>
+
+            <h2 id="roles-DELETEapi-roles--id-">Remove the specified role.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (delete-role) permission</p>
+
+<span id="example-requests-DELETEapi-roles--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/roles/11" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/roles/11"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-roles--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 2,
+    &quot;name&quot;: &quot;admin&quot;,
+    &quot;guard_name&quot;: &quot;web&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+    &quot;permissions&quot;: [
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;edit-users&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;role_id&quot;: 2,
+                &quot;permission_id&quot;: 3
+            }
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-roles--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-roles--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-roles--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-roles--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-roles--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-roles--id-" data-method="DELETE"
+      data-path="api/roles/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-roles--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-roles--id-"
+                    onclick="tryItOut('DELETEapi-roles--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-roles--id-"
+                    onclick="cancelTryOut('DELETEapi-roles--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-roles--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/roles/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-DELETEapi-roles--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="DELETEapi-roles--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-roles--id-"
+               value="11"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+        <h1 id="permissions">permissions</h1>
+
+    
+
+            <h2 id="permissions-GETapi-permissions">Display all the available permissions.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (view-perimssions) permission</p>
+
+<span id="example-requests-GETapi-permissions">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/permissions" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/permissions"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-permissions">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">[
+    {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;create-users&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;view-users&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;name&quot;: &quot;edit-users&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 4,
+        &quot;name&quot;: &quot;delete-users&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 5,
+        &quot;name&quot;: &quot;create-categories&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;view-categories&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 7,
+        &quot;name&quot;: &quot;edit-categories&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 8,
+        &quot;name&quot;: &quot;delete-categories&quot;,
+        &quot;guard_name&quot;: &quot;web&quot;,
+        &quot;created_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-11-15T18:24:28.000000Z&quot;
+    }
+]</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-permissions" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-permissions"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-permissions"></code></pre>
+</span>
+<span id="execution-error-GETapi-permissions" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-permissions"></code></pre>
+</span>
+<form id="form-GETapi-permissions" data-method="GET"
+      data-path="api/permissions"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-permissions', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-permissions"
+                    onclick="tryItOut('GETapi-permissions');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-permissions"
+                    onclick="cancelTryOut('GETapi-permissions');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-permissions" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/permissions</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-permissions" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-permissions"
+                                                                data-component="header"></label>
+        </p>
+                </form>
+
+        <h1 id="users">users</h1>
+
+    
+
+            <h2 id="users-POSTapi-users-login">Authunticate user and get the token</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-users-login">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/users/login" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"qui\",
+    \"password\": \"et\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users/login"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "qui",
+    "password": "et"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-users-login">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null,
+    &quot;email&quot;: &quot;owner@owner.com&quot;,
+    &quot;email_verified_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-11-15T16:59:52.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T16:59:52.000000Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;token&quot;: &quot;8|v7THbrUQdHC8N1dokpy3lfPBXPSDjPymtrxwWz8v&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-users-login" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-users-login"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-users-login"></code></pre>
+</span>
+<span id="execution-error-POSTapi-users-login" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-users-login"></code></pre>
+</span>
+<form id="form-POSTapi-users-login" data-method="POST"
+      data-path="api/users/login"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-users-login', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-users-login"
+                    onclick="tryItOut('POSTapi-users-login');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-users-login"
+                    onclick="cancelTryOut('POSTapi-users-login');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-users-login" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/users/login</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-users-login"
+               value="qui"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-users-login"
+               value="et"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="users-POSTapi-users-register">Register new user (used by guests)</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-users-register">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/users/register" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"viola.stoltenberg@example.org\",
+    \"password\": \"adipisci\",
+    \"password_confirm\": \"deleniti\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users/register"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "viola.stoltenberg@example.org",
+    "password": "adipisci",
+    "password_confirm": "deleniti"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-users-register">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;email&quot;: &quot;monty@gmail.comf&quot;,
+    &quot;name&quot;: &quot;ff&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T17:40:36.000000Z&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T17:40:36.000000Z&quot;,
+    &quot;id&quot;: 3,
+    &quot;token&quot;: &quot;7|DgCOUIw3NCTVPmhwqmwovG6imJHgtGx9nTHrkIle&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-users-register" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-users-register"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-users-register"></code></pre>
+</span>
+<span id="execution-error-POSTapi-users-register" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-users-register"></code></pre>
+</span>
+<form id="form-POSTapi-users-register" data-method="POST"
+      data-path="api/users/register"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-users-register', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-users-register"
+                    onclick="tryItOut('POSTapi-users-register');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-users-register"
+                    onclick="cancelTryOut('POSTapi-users-register');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-users-register" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/users/register</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-users-register"
+               value="viola.stoltenberg@example.org"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-users-register"
+               value="adipisci"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>password_confirm</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password_confirm"
+               data-endpoint="POSTapi-users-register"
+               value="deleniti"
+               data-component="body" hidden>
+    <br>
+<p>The value and <code>password</code> must match.</p>
+        </p>
+                <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-users-register"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>roles</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="roles"
+               data-endpoint="POSTapi-users-register"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="users-GETapi-users">Display all the users (paginated) with their roles and permissions.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (view-users) permission</p>
+
+<span id="example-requests-GETapi-users">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/users" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-users">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;current_page&quot;: 1,
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: null,
+            &quot;email&quot;: &quot;owner@owner.com&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:03:37.000000Z&quot;,
+            &quot;deleted_at&quot;: null,
+            &quot;roles&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;owner&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;model_id&quot;: 1,
+                        &quot;role_id&quot;: 1,
+                        &quot;model_type&quot;: &quot;App\\Models\\User&quot;
+                    },
+                    &quot;permissions&quot;: []
+                }
+            ]
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: null,
+            &quot;email&quot;: &quot;m@gmail.com&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;created_at&quot;: &quot;2022-11-15T18:51:12.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T20:36:01.000000Z&quot;,
+            &quot;deleted_at&quot;: null,
+            &quot;roles&quot;: [
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;admin&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;model_id&quot;: 3,
+                        &quot;role_id&quot;: 2,
+                        &quot;model_type&quot;: &quot;App\\Models\\User&quot;
+                    },
+                    &quot;permissions&quot;: [
+                        {
+                            &quot;id&quot;: 3,
+                            &quot;name&quot;: &quot;edit-users&quot;,
+                            &quot;guard_name&quot;: &quot;web&quot;,
+                            &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                            &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                            &quot;pivot&quot;: {
+                                &quot;role_id&quot;: 2,
+                                &quot;permission_id&quot;: 3
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;ee&quot;,
+            &quot;email&quot;: &quot;m@egmail.com&quot;,
+            &quot;email_verified_at&quot;: null,
+            &quot;created_at&quot;: &quot;2022-11-15T18:51:36.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T18:51:36.000000Z&quot;,
+            &quot;deleted_at&quot;: null,
+            &quot;roles&quot;: []
+        }
+    ],
+    &quot;first_page_url&quot;: &quot;http://localhost:8000/api/users?page=1&quot;,
+    &quot;from&quot;: 1,
+    &quot;last_page&quot;: 1,
+    &quot;last_page_url&quot;: &quot;http://localhost:8000/api/users?page=1&quot;,
+    &quot;links&quot;: [
+        {
+            &quot;url&quot;: null,
+            &quot;label&quot;: &quot;&amp;laquo; Previous&quot;,
+            &quot;active&quot;: false
+        },
+        {
+            &quot;url&quot;: &quot;http://localhost:8000/api/users?page=1&quot;,
+            &quot;label&quot;: &quot;1&quot;,
+            &quot;active&quot;: true
+        },
+        {
+            &quot;url&quot;: null,
+            &quot;label&quot;: &quot;Next &amp;raquo;&quot;,
+            &quot;active&quot;: false
+        }
+    ],
+    &quot;next_page_url&quot;: null,
+    &quot;path&quot;: &quot;http://localhost:8000/api/users&quot;,
+    &quot;per_page&quot;: 5,
+    &quot;prev_page_url&quot;: null,
+    &quot;to&quot;: 3,
+    &quot;total&quot;: 3
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-users" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-users"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-users"></code></pre>
+</span>
+<span id="execution-error-GETapi-users" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-users"></code></pre>
+</span>
+<form id="form-GETapi-users" data-method="GET"
+      data-path="api/users"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-users', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-users"
+                    onclick="tryItOut('GETapi-users');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-users"
+                    onclick="cancelTryOut('GETapi-users');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-users" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/users</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-users" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-users"
+                                                                data-component="header"></label>
+        </p>
+                </form>
+
+            <h2 id="users-POSTapi-users">Store a newly created user.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (create-users) permission</p>
+
+<span id="example-requests-POSTapi-users">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/users" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"frederick95@example.net\",
+    \"password\": \"ullam\",
+    \"password_confirm\": \"voluptatem\",
+    \"roles\": [
+        \"temporibus\"
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "frederick95@example.net",
+    "password": "ullam",
+    "password_confirm": "voluptatem",
+    "roles": [
+        "temporibus"
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-users">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;email&quot;: &quot;khalid@egmail.com&quot;,
+    &quot;name&quot;: &quot;g&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T20:41:00.000000Z&quot;,
+    &quot;created_at&quot;: &quot;2022-11-15T20:41:00.000000Z&quot;,
+    &quot;id&quot;: 6,
+    &quot;roles&quot;: [
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;admin&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;model_id&quot;: 6,
+                &quot;role_id&quot;: 2,
+                &quot;model_type&quot;: &quot;App\\Models\\User&quot;
+            },
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 3,
+                    &quot;name&quot;: &quot;edit-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 2,
+                        &quot;permission_id&quot;: 3
+                    }
+                }
+            ]
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-users" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-users"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-users"></code></pre>
+</span>
+<span id="execution-error-POSTapi-users" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-users"></code></pre>
+</span>
+<form id="form-POSTapi-users" data-method="POST"
+      data-path="api/users"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-users', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-users"
+                    onclick="tryItOut('POSTapi-users');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-users"
+                    onclick="cancelTryOut('POSTapi-users');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-users" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/users</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTapi-users" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTapi-users"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-users"
+               value="frederick95@example.net"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-users"
+               value="ullam"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>password_confirm</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password_confirm"
+               data-endpoint="POSTapi-users"
+               value="voluptatem"
+               data-component="body" hidden>
+    <br>
+<p>The value and <code>password</code> must match.</p>
+        </p>
+                <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-users"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>roles</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="roles[0]"
+               data-endpoint="POSTapi-users"
+               data-component="body" hidden>
+        <input type="text"
+               name="roles[1]"
+               data-endpoint="POSTapi-users"
+               data-component="body" hidden>
+    <br>
+<p>int[] can be array of roles names or ids</p>
+        </p>
+        </form>
+
+            <h2 id="users-GETapi-users--id-">Display the specified user with it roles and permissions.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (view-users) permission</p>
+
+<span id="example-requests-GETapi-users--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/users/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-users--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 3,
+    &quot;name&quot;: null,
+    &quot;email&quot;: &quot;m@gmail.com&quot;,
+    &quot;email_verified_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-11-15T18:51:12.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T20:36:01.000000Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;roles&quot;: [
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;admin&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;model_id&quot;: 3,
+                &quot;role_id&quot;: 2,
+                &quot;model_type&quot;: &quot;App\\Models\\User&quot;
+            },
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 3,
+                    &quot;name&quot;: &quot;edit-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 2,
+                        &quot;permission_id&quot;: 3
+                    }
+                }
+            ]
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-users--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-users--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-users--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-users--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-users--id-"></code></pre>
+</span>
+<form id="form-GETapi-users--id-" data-method="GET"
+      data-path="api/users/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-users--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-users--id-"
+                    onclick="tryItOut('GETapi-users--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-users--id-"
+                    onclick="cancelTryOut('GETapi-users--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-users--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/users/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-users--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-users--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-users--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                    </form>
+
+            <h2 id="users-PUTapi-users--id-">Update the specified user.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (edit-users) permission</p>
+
+<span id="example-requests-PUTapi-users--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/users/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"earnest94@example.net\",
+    \"password\": \"praesentium\",
+    \"password_confirm\": \"vel\",
+    \"roles\": [
+        \"quibusdam\"
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "earnest94@example.net",
+    "password": "praesentium",
+    "password_confirm": "vel",
+    "roles": [
+        "quibusdam"
+    ]
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-users--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 3,
+    &quot;name&quot;: null,
+    &quot;email&quot;: &quot;m@gmail.com&quot;,
+    &quot;email_verified_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-11-15T18:51:12.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T20:36:01.000000Z&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;roles&quot;: [
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;admin&quot;,
+            &quot;guard_name&quot;: &quot;web&quot;,
+            &quot;created_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-11-15T19:34:18.000000Z&quot;,
+            &quot;pivot&quot;: {
+                &quot;model_id&quot;: 3,
+                &quot;role_id&quot;: 2,
+                &quot;model_type&quot;: &quot;App\\Models\\User&quot;
+            },
+            &quot;permissions&quot;: [
+                {
+                    &quot;id&quot;: 3,
+                    &quot;name&quot;: &quot;edit-users&quot;,
+                    &quot;guard_name&quot;: &quot;web&quot;,
+                    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+                    &quot;pivot&quot;: {
+                        &quot;role_id&quot;: 2,
+                        &quot;permission_id&quot;: 3
+                    }
+                }
+            ]
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-users--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-users--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-users--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-users--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-users--id-"></code></pre>
+</span>
+<form id="form-PUTapi-users--id-" data-method="PUT"
+      data-path="api/users/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-users--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-users--id-"
+                    onclick="tryItOut('PUTapi-users--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-users--id-"
+                    onclick="cancelTryOut('PUTapi-users--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-users--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/users/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/users/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-PUTapi-users--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="PUTapi-users--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-users--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="PUTapi-users--id-"
+               value="earnest94@example.net"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="PUTapi-users--id-"
+               value="praesentium"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>password_confirm</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password_confirm"
+               data-endpoint="PUTapi-users--id-"
+               value="vel"
+               data-component="body" hidden>
+    <br>
+<p>The value and <code>password</code> must match.</p>
+        </p>
+                <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="PUTapi-users--id-"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>roles</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="roles[0]"
+               data-endpoint="PUTapi-users--id-"
+               data-component="body" hidden>
+        <input type="text"
+               name="roles[1]"
+               data-endpoint="PUTapi-users--id-"
+               data-component="body" hidden>
+    <br>
+<p>int[] can be array of roles names or ids</p>
+        </p>
+        </form>
+
+            <h2 id="users-DELETEapi-users--id-">Remove the specified user.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>required (delete-users) permission</p>
+
+<span id="example-requests-DELETEapi-users--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost/api/users/1" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/users/1"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-users--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;name&quot;: null,
+    &quot;email&quot;: &quot;owner@owner.com&quot;,
+    &quot;email_verified_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-11-15T18:24:27.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-11-15T19:03:37.000000Z&quot;,
+    &quot;deleted_at&quot;: null
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEapi-users--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-users--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-users--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-users--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-users--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-users--id-" data-method="DELETE"
+      data-path="api/users/{id}"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-users--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-users--id-"
+                    onclick="tryItOut('DELETEapi-users--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-users--id-"
+                    onclick="cancelTryOut('DELETEapi-users--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-users--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/users/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-DELETEapi-users--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="DELETEapi-users--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-users--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                    </form>
+
+    
+
         
     </div>
     <div class="dark-box">

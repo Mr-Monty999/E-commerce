@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dashboard\PermissionController;
 use App\Http\Controllers\dashboard\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(["namespace" => "guest"], function () {
     Route::post("users/login", [UserController::class, "login"]);
+    Route::post("users/register", [UserController::class, "register"]);
 });
 
-Route::group(["middleware" => "auth:sanctum", "namespace" => "dashboard", "prefix" => "dashboard"], function () {
+Route::group(["middleware" => "auth:sanctum", "namespace" => "dashboard"], function () {
     Route::apiResource("users", "UserController");
-    Route::apiResource("categories", "UserController");
+    Route::apiResource("roles", "RoleController");
+    Route::get("permissions", [PermissionController::class, "index"]);
+    // Route::apiResource("categories", "CategoryController");
 });
